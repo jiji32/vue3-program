@@ -5,7 +5,7 @@ const Store = defineStore('UserStore', ()=>{
     // 全局存储用户名和密码
     const userName = ref("")
     const userPassword = ref("")
-    // 进行是否登录的判断
+    // 进行是否登录的判断,路由守卫中使用
     const isLogin = computed(()=>{
         return userName.value.length > 0
     })

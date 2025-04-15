@@ -42,8 +42,11 @@ function login() {
 </template>
 <style scoped>
 #container {
-    background: #595959;
+   
     background-image: url("/public/login_bg.jpg");
+    background-size: cover;      /* 填充整个容器 */
+    background-repeat: no-repeat; /* 不重复显示图片 */
+    background-position: center;   
     height: 100%;
     width: 100%;
     position: absolute;

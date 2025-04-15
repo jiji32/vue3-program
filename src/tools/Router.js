@@ -85,14 +85,29 @@ const Router = createRouter({
     ]
 }) 
 // 路由守卫，当未登录时，非登录页面的任何页面都不允许跳转
-Router.beforeEach((from) => {
-    const store = Store()
-    let isLogin = store.isLogin;
-    if (isLogin || from.name == 'login') {
-        return true;
-    } else {
-        return {name: 'login'}
-    }
+// Router.beforeEach((from) => {
+//     const store = Store()
+//     let isLogin = store.isLogin;
+//     if (isLogin || from.name == 'login') {
+//         return true;
+//     } else {
+//         return {name: 'login'}
+//     }
     
+// })
+Router.beforeEach((to, from, next) => {
+    const store = Store()
+    const isLogin = store.isLogin
+    // 情况1：已登录时访问登录页 → 强制跳转到首页
+    if (isLogin && to.name === 'login') {
+        next({ name: 'home' })
+        return
+    }
+    // 情况2：未登录且访问非登录页 → 跳转到登录页
+    if (!isLogin && to.name !== 'login') {
+        next({ name: 'login' })
+        return
+    }
+    next()
 })
 export default Router;
